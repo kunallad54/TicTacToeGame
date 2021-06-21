@@ -14,3 +14,7 @@
 3. As a Player would like to see the board so I can choose the valid cells
    to make my move during my turn
    - Write a method showBoard to display the current Board
+
+4. Ability for user to make a move to a desired location in the board
+   - Select the index from 1 to 9 to make the move.
+   - Ensure the index is free
