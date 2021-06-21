@@ -18,3 +18,7 @@
 4. Ability for user to make a move to a desired location in the board
    - Select the index from 1 to 9 to make the move.
    - Ensure the index is free
+
+5. Ability to check for the free space before making the desired move 
+   - Extend UC 5 to Check if the free space is available for the move
+   - In case available make the move
