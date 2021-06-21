@@ -3,12 +3,16 @@ import java.util.Scanner;
 /**
  * UC1 - Creating Empty Tic Tac Toe Board
  * UC2 - Getting user input to choose either X or O
- * UC3 - As a Player would like to see the board so I can choose the valid cells to make my move during my turn
- *     - Write a method showBoard to display the current Board
+ * UC3 - As a Player would like to see the board so I can choose the valid cells to make my move during
+ * my turn - Write a method showBoard to display the current Board
  * UC4 - Ability for user to make a move to a desired location in the board
  *     - Select the index from 1 to 9 to make the move- Ensure the index is free
- * UC5 - Ability to check for the free space before making the desired move - Extend UC 5 to Check if the free space is available for the move
+ * UC5 - Ability to check for the free space before making the desired move
+ *     - Extend UC 5 to Check if the free space is available for the move
  *     - In case available make the move
+ * UC6 - As a User would like to to do a toss to check who plays first.
+ *     - Use Random to determine Heads or Tails and assign accordingly
+ *       who starts first, the computer or the user
  *
  * @author Krunal Lad
  * @Since 21-06-2021
@@ -19,12 +23,12 @@ public class TicTacToeGame {
     static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
+        TicTacToeGame ticTacToeGame = new TicTacToeGame();
         System.out.println("Welcome to Tic Tac Toe Game !!! :)");
         System.out.println("Please Enter your name : ");
         String playerName = scanner.nextLine();
-
+        ticTacToeGame.flipCoin(playerName);
         char[] board = new char[10];
-        TicTacToeGame ticTacToeGame = new TicTacToeGame();
         board = ticTacToeGame.creatingEmptyBoard(board);
 
         char playerSymbol = ticTacToeGame.chooseLetter();
@@ -62,6 +66,18 @@ public class TicTacToeGame {
                     flag = false;
                     break;
             }
+        }
+    }
+
+    // UC6 Problem - Flipping Coin to determine who will start first
+    private void flipCoin(String playerName) {
+        System.out.println("Lets have a toss !!! \nPlease make a call,Press 1 for Heads or 0 for Tails");
+        int userCall = scanner.nextInt();
+        int coinResult = (int) (Math.floor(Math.random() * 10)%2);
+        if(coinResult == userCall){
+            System.out.println("Congrats!!! You won the toss \n"+playerName+" will Play first");
+        }else {
+            System.out.println("OOPS !!! You loss the toss \nComputer will Play first");
         }
     }
 
