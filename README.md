@@ -22,3 +22,7 @@
 5. Ability to check for the free space before making the desired move 
    - Extend UC 5 to Check if the free space is available for the move
    - In case available make the move
+
+6. As a User would like to to do a toss to check who plays first.
+   - Use Random to determine Heads or Tails and assign accordingly
+     who starts first, the computer or the user
