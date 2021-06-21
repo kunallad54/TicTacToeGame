@@ -3,10 +3,12 @@ import java.util.Scanner;
 /**
  * UC1 - Creating Empty Tic Tac Toe Board
  * UC2 - Getting user input to choose either X or O
- * UC3 - As a Player would like to see the board so I can choose the valid cells to make my move during
- * my turn - Write a method showBoard to display the current Board
+ * UC3 - As a Player would like to see the board so I can choose the valid cells to make my move during my turn
+ *     - Write a method showBoard to display the current Board
  * UC4 - Ability for user to make a move to a desired location in the board
- * - Select the index from 1 to 9 to make the move- Ensure the index is free
+ *     - Select the index from 1 to 9 to make the move- Ensure the index is free
+ * UC5 - Ability to check for the free space before making the desired move - Extend UC 5 to Check if the free space is available for the move
+ *     - In case available make the move
  *
  * @author Krunal Lad
  * @Since 21-06-2021
@@ -41,7 +43,10 @@ public class TicTacToeGame {
                 board[i] = '_';
         }
         boolean flag = true;
+
         while (flag) {
+
+            // UC5 Problem - User can check position is available or not by viewing board
             System.out.println("Press 1 - To continue to play");
             System.out.println("Press 2 - To view current board");
             System.out.println("Press 3 - To quit");
