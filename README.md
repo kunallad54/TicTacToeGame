@@ -10,3 +10,7 @@
 2. Ability to allow the player to choose a letter X or O
    - Created a method to allow player to input X or O and call from main
    - Determined Player and Computer Letter to play the game   
+
+3. As a Player would like to see the board so I can choose the valid cells
+   to make my move during my turn
+   - Write a method showBoard to display the current Board
