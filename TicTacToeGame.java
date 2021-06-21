@@ -3,6 +3,8 @@ import java.util.Scanner;
 /**
  * UC1 - Creating Empty Tic Tac Toe Board
  * UC2 - Getting user input to choose either X or O
+ * UC3 - As a Player would like to see the board so I can choose the valid cells to make my move during
+ *       my turn - Write a method showBoard to display the current Board
  *
  * @author Krunal Lad
  * @Since 21-06-2021
@@ -27,9 +29,16 @@ public class TicTacToeGame {
             computerSymbol = 'O';
         else
             computerSymbol = 'X';
-        
+
         System.out.println(playerName+"'s Symbol is : "+playerSymbol);
         System.out.println("Computer's Symbol is : "+computerSymbol);
+
+        for(int i = 0; i < 10; i++){
+            // to make board visible on console
+            if(i != 0)
+                board[i] = '_';
+        }
+        ticTacToeGame.showBoard(board);
     }
 
     //UC1 Problem - creating empty tic tac toe board
@@ -56,5 +65,16 @@ public class TicTacToeGame {
             symbol = chooseLetter();
         }
         return symbol;
+    }
+
+    // UC3 Problem - Prints Tic Tac Toe board on console
+    public void showBoard(char[] board){
+        System.out.println("Current Board looks like : \n");
+        int i = 1;
+        while(i < 10){
+            System.out.println(board[i]+" "+board[i+1]+" "+board[i+2]);
+            i = i+3;
+        }
+        System.out.println();
     }
 }
