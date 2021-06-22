@@ -1,21 +1,10 @@
 import java.util.Scanner;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * UC1 - Creating Empty Tic Tac Toe Board
- * UC2 - Getting user input to choose either X or O
- * UC3 - As a Player would like to see the board so I can choose the valid cells to make my move during my turn
- *     - Write a method showBoard to display the current Board
- * UC4 - Ability for user to make a move to a desired location in the board
- *     - Select the index from 1 to 9 to make the move- Ensure the index is free
- * UC5 - Ability to check for the free space before making the desired move
- *     - Extend UC 5 to Check if the free space is available for the move
- *     - In case available make the move
- * UC6 - As a User would like to to do a toss to check who plays first.
- *     - Use Random to determine Heads or Tails and assign accordingly
- *       who starts first, the computer or the user
- * UC7 - As player would expect the Tic Tac Toe App to determine after every
- *       move the winner or the tie or change the turn
- *
+ * UC8 -On Computer getting its turn would like the computer to play like me
+ * here computer plays same like player does
+ * 
  * @author Krunal Lad
  * @Since 21-06-2021
  */
@@ -28,52 +17,48 @@ public class TicTacToeGame {
     // main method
     public static void main(String[] args) {
         System.out.println("Welcome to Tic Tac Toe Game !!! :)");
-        System.out.println("Please Enter Player 1 name : ");
-        String player1Name = scanner.nextLine();
-        System.out.println("Please Enter Player 2 name : ");
-        String player2Name = scanner.nextLine();
+        System.out.println("Please Enter Your name : ");
+        String playerName = scanner.nextLine();
         char[] board = new char[10];
         board = ticTacToeGame.creatingEmptyBoard(board);
 
-        char player1Symbol = ticTacToeGame.chooseLetter(player1Name);
-        char player2Symbol;
-        if (player1Symbol == 'X')
-            player2Symbol = 'O';
+        char playerSymbol = ticTacToeGame.chooseLetter(playerName);
+        char computerSymbol;
+        if (playerSymbol == 'X')
+            computerSymbol = 'O';
         else
-            player2Symbol = 'X';
+            computerSymbol = 'X';
 
-        System.out.println(player1Name + "'s Symbol is : " + player1Symbol);
-        System.out.println(player2Name + "'s Symbol is : " + player2Symbol);
+        System.out.println(playerName + "'s Symbol is : " + playerSymbol);
+        System.out.println("Computer's Symbol is : " + computerSymbol);
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 1; i < 10; i++) {
             // to make board visible on console
-            if (i != 0)
-                board[i] = '_';
+            board[i] = '_';
         }
-        boolean player1Turn = ticTacToeGame.flipCoin(player1Name, player2Name);
-        char playerSymbol = ' ';
+        boolean player1Turn = ticTacToeGame.flipCoin(playerName);
+
         boolean flag = true;
         // checks whose turn it is and accordingly runs the loop
         do {
             // it alternates the turn of player 1 and player 2
-            if (player1Turn == true) {
-                System.out.println(player1Name + " is playing now");
-                playerSymbol = player1Symbol;
-                flag = ticTacToeGame.gamePlay(flag, playerSymbol, board);
+            if (player1Turn) {
+                System.out.println(playerName + " is playing now");
+                ticTacToeGame.userGamePlay(playerSymbol, board);
                 player1Turn = false;
             } else {
-                System.out.println(player2Name + " is playing now");
-                playerSymbol = player2Symbol;
-                flag = ticTacToeGame.gamePlay(flag, playerSymbol, board);
+                System.out.println("Computer is playing now");
+                ticTacToeGame.computersGamePlay(computerSymbol, board);
                 player1Turn = true;
             }
 
             // checks whether player 1 has won or player 2
-            if (ticTacToeGame.playerHasWon(board) == player1Symbol) {
-                System.out.println(player1Name + " has won the game ");
+            if (ticTacToeGame.playerHasWon(board) == playerSymbol) {
+                System.out.println(playerName + " has won the game ");
                 flag = false;
-            } else if (ticTacToeGame.playerHasWon(board) == player2Symbol) {
-                System.out.println(player2Name + " has won the game ");
+            }
+            if (ticTacToeGame.playerHasWon(board) == computerSymbol) {
+                System.out.println("Computer has won the game ");
                 flag = false;
             }
 
@@ -86,29 +71,29 @@ public class TicTacToeGame {
 
     }
 
-    private boolean gamePlay(boolean flag, char playerSymbol, char[] board) {
+    public void userGamePlay(char playerSymbol, char[] board) {
         // UC5 Problem - User can check position is available or not by viewing board
-        System.out.println("Press 1 - To continue to play");
-        System.out.println("Press 2 - To view current board");
-        System.out.println("Press 3 - To quit");
-        int userChoice = scanner.nextInt();
-        switch (userChoice) {
-            case 1:
-                ticTacToeGame.getUserPosition(playerSymbol, board);
+        ticTacToeGame.showBoard(board);
+        ticTacToeGame.getUserPosition(playerSymbol, board);
+        ticTacToeGame.showBoard(board);
+    }
+
+    // UC8- Problem Solved Allowing computer to play game
+    private void computersGamePlay(char computerSymbol, char[] board) {
+        int i = 1;
+        while (i < 10) {
+            int randomPosition = ThreadLocalRandom.current().nextInt(1, 10);
+            if (board[randomPosition] == '_') {
+                board[randomPosition] = computerSymbol;
                 break;
-            case 2:
-                ticTacToeGame.showBoard(board);
-                flag = gamePlay(flag, playerSymbol, board);
-                break;
-            case 3:
-                flag = false;
-                break;
+            }
+            i++;
         }
-        return flag;
+        //System.out.println("Computer has made its move !!!");
     }
 
     // UC6 Problem - Flipping Coin to determine who will start first
-    private boolean flipCoin(String player1Name, String player2Name) {
+    private boolean flipCoin(String player1Name) {
         System.out.println("Lets have a toss !!! \n" + player1Name + " Please make a call,Press 1 for Heads or 0 for Tails");
         int userCall = scanner.nextInt();
         int coinResult = (int) (Math.floor(Math.random() * 10) % 2);
@@ -116,7 +101,7 @@ public class TicTacToeGame {
             System.out.println("Congrats!!! You won the toss \n" + player1Name + " will Play first");
             return true;
         } else {
-            System.out.println("OOPS !!! You loss the toss \n" + player2Name + " will Play first");
+            System.out.println("OOPS !!! You loss the toss \nComputer will Play first");
             return false;
         }
     }
@@ -167,10 +152,13 @@ public class TicTacToeGame {
         if (playerPosition > 0 && playerPosition < 10) {
             if (board[playerPosition] == '_')
                 board[playerPosition] = playerSymbol;
-            else
+            else {
                 System.out.println("SORRY !!! Position is already Occupied by someone else");
+                getUserPosition(playerSymbol,board);
+            }
         } else {
             System.out.println("Position is out of bond,Please select valid position");
+            getUserPosition(playerSymbol,board);
         }
     }
 
