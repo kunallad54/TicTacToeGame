@@ -29,3 +29,5 @@
 
 7. As player would expect the Tic Tac Toe App to determine after every
    move the winner or the tie or change the turn
+
+8. On Computer getting its turn would like the computer to play like me
